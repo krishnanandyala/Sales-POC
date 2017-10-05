@@ -6,7 +6,7 @@
  * object is created or incremented for the install date (today). 
  *  
  * @author Copyright (c) 2013 Salesforce.com.
- */
+ */    
 trigger asb_ListingActivityTrigger on asb_ListingActivity__c (after insert, after update) {
 	
 	private static String INSTALLS_KEY = 'Installs';
