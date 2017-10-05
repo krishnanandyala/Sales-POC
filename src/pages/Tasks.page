@@ -1,0 +1,17 @@
+<apex:page controller="TaskExtnCntrl" contentType="{!exportExcel}"  > 
+<apex:form id="fm1" >
+<apex:pageBlock id="pb1" >
+<apex:pageBlockSection rendered="{!(!isExport)}">
+<apex:commandButton action="{!exportData}" value="Export"/>
+</apex:pageBlockSection>
+<apex:pageblockTable value="{!tasklist}" var="tsk" id="pbt1"> 
+    <apex:column value="{!tsk.Subject}"/>
+    <apex:column value="{!tsk.ActivityDate}"/> 
+    <apex:column value="{!tsk.Priority}"/>
+    <apex:column value="{!tsk.Status}"/>
+    <apex:column headerValue="Assigned to"> {!tsk.who.name}</apex:column>      
+    <apex:column headerValue="IsHighPriority"> {!tsk.IsHighPriority}</apex:column>    
+</apex:pageblockTable> 
+</apex:pageBlock>
+</apex:form>
+</apex:page>

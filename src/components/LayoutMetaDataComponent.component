@@ -1,0 +1,36 @@
+<apex:component controller="RetrieveLayoutMetadata">
+ <apex:pageBlock >
+           <div style="background-color:#1798c1;font-family:Arial;font-size:18px;color:white;padding-left:0.5%;padding-bottom:0.5%"> 
+          <b>Layouts</b>
+         </div>
+         <div style="padding-top:1%">
+         <apex:pageBlock id="layoutBlock">     
+        <apex:dataTable value="{!layoutList}" var="layoutItem" id="flowTable" border="1" cellpadding="10" cellspacing="1">
+     
+            <apex:column headerValue="Layout Name">{!layoutItem.fullName}</apex:column>
+            <apex:column headerValue="Fields Used">
+            <apex:datatable value="{!layoutItem.layoutSections}" var="laySection">
+                <apex:column >
+                    <apex:datatable value="{!laySection.layoutColumns}" var="layoutColumn">
+                        <apex:column >
+                            <apex:repeat value="{!layoutColumn.layoutItems}" var="layoutItem">
+                                <apex:outputText value="{!layoutItem.field}"/><br/>
+                            </apex:repeat>
+                        </apex:column>
+                    </apex:dataTable>
+                </apex:column>
+            </apex:datatable>
+            </apex:column>
+            </apex:dataTable>
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Next"  action="{!getNextCount}" rerender="layoutBlock" rendered="{!hasNext}" status="status"/>
+                <apex:commandButton value="Previous" action="{!getPreviousCount}" rerender="layoutBlock" rendered="{!hasPrevious}" status="status"/>
+            </apex:pageBlockButtons>
+        </apex:pageblock>
+       </div>
+      <apex:pageBlockButtons location="top">
+          <!--<apex:commandButton action="{!exportLayouts}" value="Export" />-->
+          <apex:commandLink value="Export" title="Export" action="{!exportLayouts}" target="_blank" styleClass="btn" style="padding:.5%"/>
+      </apex:pageBlockButtons>
+     </apex:pageBlock>
+</apex:component>

@@ -1,0 +1,5 @@
+<apex:page >
+<apex:form >
+  <c:ApprovalProcessMetaDataComponent />
+  </apex:form>
+</apex:page>

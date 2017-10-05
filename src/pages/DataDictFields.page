@@ -1,0 +1,28 @@
+<apex:page controller="DataDictFieldsController" showHeader="false" contentType="{!abcd}" >
+<apex:form >
+<apex:pageBlock >
+        <apex:pageBlockSection rendered="{!(!rend)}" >            
+        <apex:selectList value="{!sel}" size="1" label="Select Object" >
+            <apex:selectOptions value="{!objects}"/>
+            <apex:actionSupport event="onchange" action="{!readContentFields}"/>
+        </apex:selectList>
+        <apex:commandButton action="{!export}" value="export" />
+    </apex:pageBlockSection>
+        <apex:pageBlockTable value="{!Wrapperlst}" var="l" id="pb">
+        <apex:column value="{!sel}" headerValue="Object"/>
+        <!--<apex:column style="color:black;text-decoration:none;cursor:default" headerValue="Object">{!l.fd.EntityDefinitionId}</apex:column>-->
+        <apex:column value="{!l.fd.Label}" headerValue="Field Label"/>
+        <apex:column value="{!l.fd.MasterLabel}" headerValue="Field Name"/>
+        <apex:column value="{!l.fd.QualifiedApiName}" headerValue="Field API"/>
+        <apex:column value="{!l.fd.DataType}" headerValue="Data Type"/>
+        <apex:column value="{!l.stdOrCust}" headerValue="Standard or Custom Field" />
+        <apex:column value="{!l.fd.ControllingFieldDefinitionId}" headerValue="Controlling Field"/>        
+        <apex:column value="{!l.description}" headerValue="Field Description" />
+        <apex:column value="{!l.inlineHelpText}" headerValue="Help Text" />
+        <apex:column headerValue="History Tracking">{!l.fd.IsFieldHistoryTracked}</apex:column>
+        <apex:column headerValue="Installed package Namespace Prefix">{!l.fd.NamespacePrefix}</apex:column>
+        <apex:column headerValue="IsIndexed">{!l.fd.IsIndexed}</apex:column>
+    </apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

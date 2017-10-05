@@ -1,0 +1,31 @@
+<apex:page controller="ddtestcon" showHeader="false" contentType="{!abcd}" >
+<apex:form >
+<apex:pageBlock >
+    <apex:pageBlockSection rendered="{!(!rend)}" >
+        <apex:commandButton action="{!export}" value="export" />
+        <apex:selectList value="{!sel}" size="1">
+            <apex:selectOptions value="{!objects}"/>
+            <apex:actionSupport event="onchange" action="{!readLayoutcont}"/>
+        </apex:selectList>
+    </apex:pageBlockSection>
+    <apex:pageBlockTable value="{!Wrapperlst}" var="l" id="pb">
+        <apex:column style="text-decoration: none;" headerValue="EntityDefinitionId">{!l.fd.EntityDefinitionId}</apex:column>
+        <apex:column value="{!l.fd.Label}"/>
+        <apex:column value="{!l.fd.DataType}"/>
+        <apex:column value="{!l.fd.QualifiedApiName}"/>
+        <apex:column value="{!l.fd.IsFieldHistoryTracked}"/>
+        <apex:column value="{!l.fieldUpdates}" headerValue="Field Updates"/>
+        <apex:column value="{!l.isli}" headerValue="{!IF(PgLayots.size>0,PgLayots[0],null)}"/>
+        <apex:column value="{!l.isli1}" headerValue="{!IF(PgLayots.size>1,PgLayots[1],null)}"/>
+        <apex:column value="{!l.isli2}" headerValue="{!IF(PgLayots.size>2,PgLayots[2],null)}"/>
+        <apex:column value="{!l.isli3}" headerValue="{!IF(PgLayots.size>3,PgLayots[3],null)}"/>
+        <apex:column value="{!l.isli4}" headerValue="{!IF(PgLayots.size>4,PgLayots[4],null)}"/>
+        
+
+       <!-- <apex:column value="{!l.ReferenceTargetField}"/>-->
+    </apex:pageBlockTable>
+
+</apex:pageBlock>
+</apex:form>
+<!-- -->
+</apex:page>

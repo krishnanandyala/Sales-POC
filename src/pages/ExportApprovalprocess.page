@@ -1,0 +1,12 @@
+<apex:page controller="ApprovalProcess" contentType="application/vnd.ms-excel#Approvalinfo.xls">
+        <apex:pageBlock title="Approval Post templates">
+             <apex:dataTable value="{!approvaltemp}" var="atemp" id="ApprovalProcessTable" border="1" cellpadding="10" cellspacing="1">
+                <apex:column headerValue="ID" value="{!atemp.id}"/>
+                <apex:column headerValue="Name" value="{!atemp.Name}"/>
+                <apex:column headerValue="State" value="{!atemp.State}"/>
+                <apex:column headerValue="Description" value="{!atemp.Description}"/>
+                <apex:column headerValue="TableEnumOrId" value="{!atemp.TableEnumOrId}"/>
+                <apex:column headerValue="Type" value="{!atemp.Type}"/>
+                </apex:dataTable>                
+        </apex:pageBlock>
+</apex:page>

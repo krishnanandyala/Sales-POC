@@ -1,0 +1,18 @@
+<apex:page controller="ApprovalProcess" >
+<apex:form >
+  <apex:commandButton value="Export" action="{!Export}"/>
+        <apex:pageBlock title="Approval Process" rendered="{!(!rend)}">
+             <apex:pageBlockTable value="{!pdWrapperList}" var="a">
+                <apex:column headerValue="Object" value="{!a.pd.TableEnumOrId}"/>
+                <apex:column headerValue="Name" value="{!a.pd.Name}"/>
+                <apex:column headerValue="Fields used" value="{!a.fi}"/>
+                <apex:column headerValue="ID" value="{!a.pd.id}"/>
+                <apex:column headerValue="State" value="{!a.pd.State}"/>
+                <apex:column headerValue="Description" value="{!a.pd.Description}"/>
+                <apex:column headerValue="Type" value="{!a.pd.Type}"/>
+                </apex:pageBlockTable>
+                {!abcd}
+              </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

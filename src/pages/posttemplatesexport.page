@@ -1,0 +1,11 @@
+<apex:page controller="postTemplates" contentType="application/vnd.ms-excel#filename.xls">
+    <apex:pageBlock title="Approvals Post Teamplates">                  
+                <apex:pageBlockTable value="{!lst_posttemp}" var="pt">
+                    <apex:column headerValue="Full Name" value="{!pt.fullName}"/>
+                    <apex:column headerValue="Label" value="{!pt.label}"/>
+                    <apex:column headerValue="Default" value="{!pt.defaultval}"/>
+                    <apex:column headerValue="Fields" value="{!pt.fields}"/>
+                    <apex:column headerValue="Description" value="{!pt.description}"/>                
+                </apex:pageBlockTable>
+     </apex:pageblock>  
+</apex:page>

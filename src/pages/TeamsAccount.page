@@ -1,0 +1,27 @@
+<apex:page controller="AccountTeamController" showHeader="false" contentType="{!abcd}" >
+  <apex:form >
+  <apex:pageBlock >
+  <apex:pageBlockSection rendered="{!(!rend)}">
+      <apex:commandButton action="{!export}" value="export" />
+     </apex:pageBlockSection>
+     </apex:pageBlock>
+          <apex:pageBlock title="Roles">
+          <apex:pageBlockTable value="{!teams}" var="tms">
+              <apex:column value="{!tms.UserId}"/>
+              <apex:column value="{!tms.TeamMemberRole }"/>
+              <apex:column value="{!tms.AccountAccessLevel}"/>
+              <apex:column value="{!tms.CaseAccessLevel}"/>
+              <apex:column value="{!tms.ContactAccessLevel}"/>
+              <apex:column value="{!tms.OpportunityAccessLevel}"/>
+          </apex:pageBlockTable>
+          </apex:pageBlock>
+          <br/>
+          <apex:pageBlock title="Profiles">
+          <apex:pageBlockTable title="Profiles" value="{!profiles}" var="pf" >
+              <apex:column value="{!pf.Name}" headerValue="Profile Name"/>
+              <apex:column headerValue="Permissions">{!pf.PermissionsManageUsers}</apex:column>
+              <apex:column value="{!pf.UserType }"/>
+          </apex:pageBlockTable>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

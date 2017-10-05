@@ -1,0 +1,17 @@
+<apex:page controller="postTemplates">
+<apex:form >
+<apex:commandButton value="Export" action="{!ExportPostTemplates}"/>
+    <apex:pageBlock title="Approvals PostTeamplates">
+        <apex:commandButton value="PostTemplates" action="{!postTemplatesVal}"/>
+    </apex:pageBlock>
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!lst_posttemp}" var="pt">
+                <apex:column headerValue="Full Name" value="{!pt.fullName}"/>
+                <apex:column headerValue="Label" value="{!pt.label}"/>
+                <apex:column headerValue="Default" value="{!pt.defaultval}"/>
+                <apex:column headerValue="Fields" value="{!pt.fields}"/>
+                <apex:column headerValue="Description" value="{!pt.description}"/>               
+            </apex:pageBlockTable>
+        </apex:pageblock>
+</apex:form>    
+</apex:page>

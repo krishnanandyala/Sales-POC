@@ -1,0 +1,85 @@
+<apex:component controller="RetrieveFlowMetadata">
+    <apex:pageBlock >
+        <div style="background-color:#1798c1;font-family:Arial;font-size:18px;color:white;padding-left:0.5%;padding-bottom:0.5%;padding-top:0.5%"> 
+            <b>Process Builder (Flows)</b>
+        </div>
+        <div style="padding-top:1%">
+            <apex:pageBlock id="flowBlock"> 
+                <apex:dataTable value="{!flowList}" var="flowItem" border="1" cellpadding="10" cellspacing="1">
+                    <apex:column headerValue="Flow Name"  value="{!flowItem.label}"/>
+                    <apex:column headerValue="Object">
+                        <apex:repeat value="{!flowItem.processMetadataValues}" var="processMeta">
+                            <apex:outputText value="{!processMeta.value.stringValue}" rendered="{!processMeta.name == 'ObjectType'}"/>
+                        </apex:repeat>
+                    </apex:column>
+                    <apex:column headerValue="Status" value="{!flowItem.status}"/>
+                    <apex:column headerValue="Description"  value="{!flowItem.description}"/>
+                    <apex:column headerValue="Process Type" value="{!flowItem.processType}"/>
+                    <apex:column headerValue="Criteria" >
+                        <apex:dataTable value="{!flowItem.decisions}" var="decisionrule">
+                            <apex:column ><b>=>{!decisionrule.name}</b>
+                                <apex:dataTable value="{!decisionrule.rules}" var="rule">
+                                    <apex:column ><b>{!rule.Name} - {!rule.label}</b>
+                                        <apex:dataList value="{!rule.conditions}" var="condition">
+                                            {!condition.leftValueReference}   <br/>{!condition.operator}<br/>
+                                            <apex:outputText value="{!condition.rightValue.numberValue}"/>
+                                            <apex:outputText value="{!condition.rightValue.dateTimeValue}"/>
+                                            <apex:outputText value="{!condition.rightValue.dateValue}"/>
+                                            <apex:outputText value="{!condition.rightValue.elementReference}"/>
+                                            <apex:outputText value="{!condition.rightValue.stringValue}"/>
+                                            <apex:outputText value="{!condition.rightValue.booleanValue}" rendered="{!condition.rightValue.numberValue == null && condition.rightValue.dateTimeValue == null && condition.rightValue.stringValue == ''
+                                                                                                                    && condition.rightValue.dateValue == null && condition.rightValue.elementReference == null}"/>
+                                        </apex:dataList>
+                                    </apex:column>
+                                </apex:dataTable>
+                            </apex:column>
+                        </apex:dataTable>
+                    </apex:column>
+                    <apex:column headerValue="Actions">
+                        <apex:dataList value="{!flowItem.actionCalls}" var="actionCall"> 
+                            <b>Action Type : </b>{!actionCall.actionType},<br/>
+                            <b>Action Name : </b>{!actionCall.actionName}  
+                        </apex:dataList>
+                        <apex:outputLabel rendered="{!flowItem.recordCreates != null}"><b>=>Record Create Actions</b><br/></apex:outputLabel>
+                        <apex:dataList value="{!flowItem.recordCreates}" var="recordCreate">
+                            <b>Action Name : {!recordCreate.name} - {!recordCreate.label}</b>
+                            <apex:dataList value="{!recordCreate.inputAssignments}" var="inputAssignment">
+                                {!inputAssignment.field} = 
+                                <apex:outputText value="{!inputAssignment.value.numberValue}"/>
+                                <apex:outputText value="{!inputAssignment.value.dateTimeValue}"/>
+                                <apex:outputText value="{!inputAssignment.value.dateValue}"/>
+                                <apex:outputText value="{!inputAssignment.value.elementReference}"/>
+                                <apex:outputText value="{!inputAssignment.value.stringValue}"/>
+                                <apex:outputText value="{!inputAssignment.value.booleanValue}" rendered="{!inputAssignment.value.numberValue == null && inputAssignment.value.dateTimeValue == null && inputAssignment.value.stringValue == ''
+                                                                                                         && inputAssignment.value.dateValue == null && inputAssignment.value.elementReference == null}"/>
+                            </apex:dataList>
+                        </apex:dataList>
+                        <apex:outputLabel rendered="{!flowItem.recordUpdates != null}"><b>=>Record Update Actions</b><br/></apex:outputLabel>
+                        <apex:dataList value="{!flowItem.recordUpdates}" var="recordUpdate">    
+                            <b>Action Name : {!recordUpdate.name} - {!recordUpdate.label}</b>
+                            <apex:dataList value="{!recordUpdate.inputAssignments}" var="inputAssignment">
+                                {!inputAssignment.field} = 
+                                <apex:outputText value="{!inputAssignment.value.numberValue}"/>
+                                <apex:outputText value="{!inputAssignment.value.dateTimeValue}"/>
+                                <apex:outputText value="{!inputAssignment.value.dateValue}"/>
+                                <apex:outputText value="{!inputAssignment.value.elementReference}"/>
+                                <apex:outputText value="{!inputAssignment.value.stringValue}"/>
+                                <apex:outputText value="{!inputAssignment.value.booleanValue}" rendered="{!inputAssignment.value.numberValue == null && inputAssignment.value.dateTimeValue == null && inputAssignment.value.stringValue == ''
+                                                                                                         && inputAssignment.value.dateValue == null && inputAssignment.value.elementReference == null}"/>
+                            </apex:dataList>
+                        </apex:dataList>
+                    </apex:column>
+                </apex:dataTable>
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Next"  action="{!getNextFlowCount}" rerender="flowBlock" rendered="{!hasNext}" status="status"/>
+                    <apex:commandButton value="Previous" action="{!getPreviousFlowCount}" rerender="flowBlock" rendered="{!hasPrevious}" status="status"/>
+                	
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+        </div>
+        <apex:pageBlockButtons location="top">
+            <!--<apex:commandButton value="Export" action="{!exportFlows}" />-->
+            <apex:commandLink value="Export" title="Export" action="{!exportFlows}" target="_blank" styleClass="btn" style="padding:.5%"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+</apex:component>

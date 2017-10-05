@@ -1,0 +1,59 @@
+<apex:component controller="RetrieveApprovalProcessMetaData">
+    <apex:pageBlock >
+        <apex:pageBlockButtons location="top">
+            <!--<apex:commandButton value="Export" action="{!exportApprovals}" />-->
+            <apex:commandLink value="Export" title="Export" action="{!exportApprovals}" target="_blank" styleClass="btn" style="padding:.5%"/>
+        </apex:pageBlockButtons>
+        <div style="background-color:#1798c1;font-family:Arial;font-size:18px;color:white;padding-left:0.5%;padding-bottom:0.5%;padding-top:0.5%"> 
+            <b>Approval Processes</b>
+        </div>
+        <div style="padding-top:1%">
+            <apex:pageBlock id="approvalBlock"> 
+                <apex:dataTable value="{!approvalProcessList}" var="approvalProcessItem" id="approvalProcessTable" border="1" cellpadding="10" cellspacing="1">
+                    <apex:column headerValue="Name"  value="{!approvalProcessItem.label}"/>
+                    <apex:column headerValue="Object">
+                        {!LEFT(approvalProcessItem.fullName, FIND('.', approvalProcessItem.fullName)-1)}
+                    </apex:column>
+                    <apex:column headerValue="Status">
+                        <apex:outputText rendered="{!!approvalProcessItem.active}"> InActive</apex:outputText>
+                        <apex:outputText rendered="{!approvalProcessItem.active}"> Active</apex:outputText>
+                    </apex:column>
+                    <apex:column headerValue="Entry Criteria">
+                        <apex:outputText >{!approvalProcessItem.entryCriteria.formula}</apex:outputText>
+                        <apex:dataList value="{!approvalProcessItem.entryCriteria.criteriaItems}" var="criteriaItem">    
+                            {!criteriaItem.field} &nbsp; &nbsp;  {!criteriaItem.operation}  &nbsp; &nbsp; {!criteriaItem.value}
+                            <br/><br/>
+                        </apex:dataList>
+                    </apex:column>
+                    <apex:column headerValue="Actions">
+                        <apex:outputLabel rendered="{!approvalProcessItem.initialSubmissionActions.action != null}"><b>Initial Submission Approval Actions</b></apex:outputLabel>
+                        <apex:dataList value="{!approvalProcessItem.initialSubmissionActions.action}" var="iniSubmissionAction">
+                            Action Name : {!iniSubmissionAction.name}<br/>
+                            Action Type : {!iniSubmissionAction.type_x}
+                        </apex:dataList>
+                        <apex:outputLabel rendered="{!approvalProcessItem.finalApprovalActions.action != null}"><b>Final Approval Actions</b></apex:outputLabel>
+                        <apex:dataList value="{!approvalProcessItem.finalApprovalActions.action}" var="fApprAction">
+                            Action Name : {!fApprAction.name}<br/>
+                            Action Type : {!fApprAction.type_x}
+                        </apex:dataList>
+                        <apex:outputLabel rendered="{!approvalProcessItem.finalRejectionActions.action != null}"><b>Final Rejection Actions</b></apex:outputLabel>
+                        <apex:dataList value="{!approvalProcessItem.finalRejectionActions.action}" var="fRejAction">
+                            Action Name : {!fRejAction.name}<br/>
+                            Action Type : {!fRejAction.type_x}
+                        </apex:dataList>
+                        <apex:outputLabel rendered="{!approvalProcessItem.recallActions.action != null}"><b>Final Re Call Actions</b></apex:outputLabel>
+                        <apex:dataList value="{!approvalProcessItem.recallActions.action}" var="reCallAction">
+                            Action Name : {!reCallAction.name}<br/>
+                            Action Type : {!reCallAction.type_x}
+                        </apex:dataList>
+                    </apex:column>
+                    <apex:column headerValue="Description" value="{!approvalProcessItem.description}"/>
+                </apex:dataTable>
+                <apex:pageBlockButtons >
+                    <apex:commandButton value="Next"  action="{!getNextCount}" rendered="{!hasNext}" rerender="approvalBlock" status="status"/>
+                    <apex:commandButton value="Previous" action="{!getPreviousCount}" rendered="{!hasPrevious}" rerender="approvalBlock" status="status"/>
+                </apex:pageBlockButtons>  
+            </apex:pageBlock>
+        </div>
+    </apex:pageBlock>
+</apex:component>

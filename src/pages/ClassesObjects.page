@@ -1,0 +1,22 @@
+<apex:page controller="apexClassesTriggerNamecntrl" contentType="{!exportExcel}">
+    <apex:form >
+        <apex:pageBlock title="Data">
+               <apex:pageBlockSection rendered="{!hideDetails}">
+                    <apex:commandButton action="{!exportData}" value="Export"/>
+                </apex:pageBlockSection> 
+            <h2>Apex Classes</h2>
+                <apex:pageBlockTable value="{!apexclassList}" var="apexclass">
+                    <apex:column value="{!apexclass.name}"/>
+                    <apex:column value="{!apexclass.NamespacePrefix}"/>
+                    <apex:column value="{!apexclass.Status}"/>
+                    <apex:column headerValue="Is valid">{!apexclass.IsValid}</apex:column>
+                </apex:pageBlockTable>
+                <br/>
+            <h2>Objects</h2>
+                <apex:pageBlockTable value="{!sobj}" var="so">
+                    <apex:column value="{!so}"/>
+                </apex:pageBlockTable>
+                <br/>
+              </apex:pageBlock>
+    </apex:form>    
+</apex:page>

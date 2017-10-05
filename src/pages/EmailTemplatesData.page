@@ -1,0 +1,22 @@
+<apex:page controller="Emailtemplates" >
+    <apex:form >
+        <apex:commandButton value="Export" action="{!ExportTemplates}"/>
+        <apex:pageBlock title="Email Templates" >
+            
+             <apex:pageBlockTable value="{!emailTemp}" var="etemp">
+             
+                 <apex:column headerValue="Name" value="{!etemp.name}"/>
+                 <apex:column headerValue="Subject" value="{!etemp.Subject}"/>
+                 <apex:column headerValue="Body" value="{!etemp.Body}"/>
+                 <!--<apex:column headerValue="DeveloperName" value="{!etemp.DeveloperName}"/>-->
+                 <apex:column headerValue="Description" value="{!etemp.Description}"/>
+                 <apex:column headerValue="TemplateType" value="{!etemp.TemplateType}"/>
+                 <apex:column headerValue="Encoding" value="{!etemp.Encoding}"/>
+                 <apex:column headerValue="IsActive" > <apex:outputtext value="{!etemp.IsActive}"/> </apex:column>
+                 <apex:column headerValue="RelatedEntityType" value="{!etemp.RelatedEntityType}"/>
+                 <apex:column headerValue="TemplateStyle" value="{!etemp.TemplateStyle}"/>
+
+             </apex:pageBlockTable> 
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

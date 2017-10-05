@@ -1,0 +1,16 @@
+<apex:page controller="apexTriggerContrller" contentType="{!exportExcel}">
+    <apex:form >
+        <apex:pageBlock title="Triggers">
+               <apex:pageBlockSection rendered="{!hideDetails}">
+                    <apex:commandButton action="{!exportData}" value="Export"/>
+                </apex:pageBlockSection> 
+            <apex:pageblockTable value="{!triglist}" var="tr" >
+                <apex:column value="{!tr.Name}"/>
+                <apex:column value="{!tr.TableEnumOrId}"/>
+                <apex:column value="{!tr.NamespacePrefix}"/>
+                <apex:column value="{!tr.Status}"/>
+                <apex:column headerValue="Is valid">{!tr.IsValid }</apex:column>
+            </apex:pageblockTable>
+        </apex:pageBlock>
+    </apex:form>    
+</apex:page>

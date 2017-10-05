@@ -1,0 +1,35 @@
+<apex:page controller="RetrieveLayoutMetadata" >
+    <div style="text-align:center;background-color:#1798c1;font-family:Arial;font-size:18px;color:white;padding-left:0.5%;padding-bottom:0.5%;padding-top:0.5%"> 
+        <!--<b>{!selectedObject} Layouts MetaData</b>-->
+    </div>
+    <apex:form >
+        <div style="padding:0.5%;margin-left:45%">
+            <apex:commandButton action="{!exportLayouts}" value="Export" />
+        </div>
+    </apex:form>
+    <apex:pageBlock >
+        <apex:pageblocksection >
+            <apex:dataTable value="{!layoutList}" var="layoutItem" id="flowTable" border="1" cellpadding="10" cellspacing="1">
+                <apex:column headerValue="Layout Name"  value="{!layoutItem.fullName}"/>
+                <apex:column headerValue="Related Objects">
+                    <apex:repeat value="{!layoutItem.relatedObjects}" var="relObj">
+                        <apex:outputText value="{!relObj}"/><br/>
+                    </apex:repeat>
+                </apex:column>
+                <apex:column headerValue="Fields Used">
+                    <apex:datatable value="{!layoutItem.layoutSections}" var="laySection">
+                        <apex:column >
+                            <apex:datatable value="{!laySection.layoutColumns}" var="layoutColumn">
+                                <apex:column >
+                                    <apex:repeat value="{!layoutColumn.layoutItems}" var="layoutItem">
+                                        <apex:outputText value="{!layoutItem.field}"/><br/>
+                                    </apex:repeat>
+                                </apex:column>
+                            </apex:dataTable>
+                        </apex:column>
+                    </apex:datatable>
+                </apex:column>
+            </apex:dataTable>
+        </apex:pageblocksection>
+    </apex:pageblock>
+</apex:page>

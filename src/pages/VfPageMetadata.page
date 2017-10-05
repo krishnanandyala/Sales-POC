@@ -1,0 +1,21 @@
+<apex:page sidebar="false" Controller="VfPageMetadata">
+    <apex:form >
+        <apex:pageBlock title="Visualforcepage Metadata" >
+            <apex:pageBlockTable value="{!vfpage}" var="vp">
+                <apex:column headerValue="Object Name"/>
+                <apex:column headerValue="Field Label"/>
+                <apex:column headerValue="Field Name"/>
+                <apex:column headerValue="Field API"/>
+                <apex:column headerValue="Data Type"/>
+                <apex:column headerValue="Standard/Custom"/>
+                <apex:column headerValue="Controlling Field"/>
+                <apex:column headerValue="Field Description"/>
+                <apex:column headerValue="Help Text"/>
+                <apex:column headerValue="History Tracking"/>
+            </apex:pageBlockTable>
+
+        </apex:pageBlock>
+    
+    </apex:form>
+  
+</apex:page>
